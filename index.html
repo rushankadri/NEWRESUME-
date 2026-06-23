@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Rushan N Kadri — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --font-display:'Instrument Serif',serif;
+  --font-body:'Inter',sans-serif;
+  --background:hsl(201,100%,13%);
+  --foreground:hsl(0,0%,100%);
+  --muted-foreground:hsl(240,4%,66%);
+  --primary:hsl(0,0%,100%);
+  --primary-foreground:hsl(0,0%,4%);
+  --secondary:hsl(0,0%,10%);
+  --muted:hsl(0,0%,10%);
+  --accent:hsl(0,0%,10%);
+  --border:hsl(0,0%,18%);
+  --input:hsl(0,0%,18%);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--background);color:var(--foreground);overflow-x:hidden}
+
+/* VIDEO */
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+
+/* LIQUID GLASS */
+.liquid-glass{
+  background:rgba(255,255,255,0.01);
+  background-blend-mode:luminosity;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border:none;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);
+  position:relative;
+  overflow:hidden;
+  border-radius:9999px;
+  cursor:pointer;
+  transition:transform 0.2s ease;
+  color:var(--foreground);
+  font-family:var(--font-body);
+  text-decoration:none;
+  display:inline-block;
+}
+.liquid-glass::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1.4px;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%,
+    rgba(255,255,255,0.45) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+.liquid-glass:hover{transform:scale(1.03)}
+
+/* ANIMATIONS */
+@keyframes fade-rise{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.animate-fade-rise{animation:fade-rise 0.8s ease-out both}
+.animate-fade-rise-delay{animation:fade-rise 0.8s ease-out 0.2s both}
+.animate-fade-rise-delay-2{animation:fade-rise 0.8s ease-out 0.4s both}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;flex-direction:row;justify-content:space-between;align-items:center;
+  padding:1.5rem 2rem;
+  max-width:80rem;
+  margin:0 auto;
+  width:100%;
+  left:50%;
+  transform:translateX(-50%);
+}
+.logo{
+  font-family:'Instrument Serif',serif;
+  font-size:1.875rem;
+  letter-spacing:-0.025em;
+  color:var(--foreground);
+  font-weight:400;
+  line-height:1;
+}
+.logo sup{font-size:0.6em;vertical-align:super}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{
+  font-size:0.875rem;
+  color:var(--muted-foreground);
+  text-decoration:none;
+  transition:color 0.2s;
+  font-family:var(--font-body);
+}
+.nav-links a.active,.nav-links a:hover{color:var(--foreground)}
+.btn-nav{padding:0.625rem 1.5rem;font-size:0.875rem;background:none;border:none}
+
+/* HERO */
+#hero{
+  position:relative;z-index:10;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  padding:90px 1.5rem 10rem;
+}
+#hero h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(3rem,9vw,6.5rem);
+  line-height:0.95;
+  letter-spacing:-2.46px;
+  font-weight:400;
+  color:var(--foreground);
+  max-width:80rem;
+}
+#hero h1 em{font-style:normal;color:var(--muted-foreground)}
+.hero-sub{
+  color:var(--muted-foreground);
+  font-size:clamp(1rem,1.8vw,1.125rem);
+  max-width:42rem;
+  margin-top:2rem;
+  line-height:1.65;
+  font-family:var(--font-body);
+}
+.btn-hero{padding:1.25rem 3.5rem;font-size:1rem;margin-top:3rem;background:none;border:none}
+
+/* SECTIONS */
+.section-wrap{position:relative;z-index:10}
+.section-bg{background:rgba(0,20,35,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:0.5px solid rgba(255,255,255,0.07);border-bottom:0.5px solid rgba(255,255,255,0.07)}
+.section{padding:6rem 2rem;max-width:80rem;margin:0 auto;width:100%}
+.section-inner{max-width:64rem;margin:0 auto}
+.eyebrow{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:1rem;font-family:var(--font-body)}
+.section-heading{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:400;
+  line-height:0.95;
+  letter-spacing:-2px;
+  margin-bottom:3rem;
+  color:var(--foreground);
+}
+.section-heading em{font-style:normal;color:var(--muted-foreground)}
+
+/* GLASS CARD */
+.glass-card{
+  background:rgba(255,255,255,0.03);
+  border:0.5px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:2rem;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  transition:border-color 0.3s,transform 0.3s;
+}
+.glass-card:hover{border-color:rgba(255,255,255,0.22);transform:translateY(-3px)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:1.5rem}
+.about-summary{font-size:1rem;color:var(--muted-foreground);line-height:1.75}
+.tag-wrap{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
+.tag{
+  display:inline-block;
+  background:rgba(255,255,255,0.06);
+  border:0.5px solid rgba(255,255,255,0.12);
+  border-radius:9999px;
+  padding:0.35rem 1rem;
+  font-size:0.78rem;
+  color:var(--muted-foreground);
+  font-family:var(--font-body);
+  transition:background 0.2s,color 0.2s;
+}
+.tag:hover{background:rgba(255,255,255,0.12);color:var(--foreground)}
+.side-stack{display:flex;flex-direction:column;gap:1.5rem}
+.side-card h3{font-family:'Instrument Serif',serif;font-size:1.3rem;font-weight:400;margin-bottom:1rem;color:var(--foreground)}
+.side-card ul{list-style:none;padding:0}
+.side-card ul li{font-size:0.875rem;color:var(--muted-foreground);padding:0.4rem 0;border-bottom:0.5px solid rgba(255,255,255,0.06);line-height:1.5}
+.side-card ul li:last-child{border:none}
+.side-card ul li strong{color:var(--foreground);font-weight:500}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.proj-number{font-size:0.7rem;letter-spacing:0.15em;color:rgba(255,255,255,0.25);margin-bottom:1.25rem;font-family:var(--font-body)}
+.proj-title{font-family:'Instrument Serif',serif;font-size:1.6rem;font-weight:400;color:var(--foreground);margin-bottom:0.4rem;line-height:1}
+.proj-stack{font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1rem}
+.proj-desc{font-size:0.875rem;color:var(--muted-foreground);line-height:1.65}
+
+/* EDUCATION + CERTS */
+.edu-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.card-heading{font-family:'Instrument Serif',serif;font-size:1.3rem;font-weight:400;margin-bottom:1.25rem;color:var(--foreground)}
+.edu-item{padding:1rem 0;border-bottom:0.5px solid rgba(255,255,255,0.07)}
+.edu-item:last-child{border:none}
+.edu-deg{font-size:0.95rem;color:var(--foreground);font-weight:500}
+.edu-inst{font-size:0.8rem;color:var(--muted-foreground);margin-top:0.2rem}
+.cert-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 0;border-bottom:0.5px solid rgba(255,255,255,0.07)}
+.cert-item:last-child{border:none}
+.cert-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.35);flex-shrink:0}
+.cert-name{font-size:0.875rem;color:var(--muted-foreground)}
+
+/* CONTACT */
+#contact{position:relative;z-index:10;text-align:center;padding:8rem 2rem 7rem}
+#contact .section-heading{margin-bottom:1rem}
+.contact-sub{font-size:1rem;color:var(--muted-foreground);margin-bottom:3rem;max-width:30rem;margin-left:auto;margin-right:auto;line-height:1.7}
+.contact-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.contact-btn{padding:1rem 2.5rem;font-size:0.9rem}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .about-grid,.projects-grid,.edu-cert-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<video autoplay loop muted playsinline>
+  <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4"/>
+</video>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">RNK<sup>®</sup></div>
+  <div class="nav-links">
+    <a href="#hero" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:kadrirushan112@gmail.com" class="liquid-glass btn-nav">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <h1 class="animate-fade-rise">
+    Rushan <em>N.</em> Kadri —<br/>
+    where <em>code meets</em><br/><em>vision.</em>
+  </h1>
+  <p class="hero-sub animate-fade-rise-delay">
+    Passionate IT student &amp; aspiring software developer with hands-on experience in cloud architecture, AI, and web development — seeking internship opportunities to build scalable, real-world solutions.
+  </p>
+  <a href="#projects" class="liquid-glass btn-hero animate-fade-rise-delay-2">View My Work</a>
+</section>
+
+<!-- ABOUT -->
+<div class="section-wrap section-bg" id="about">
+  <div class="section">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Who I am</p>
+      <div class="section-heading reveal">About <em>me</em></div>
+      <div class="about-grid">
+        <div class="glass-card reveal">
+          <p class="about-summary">Passionate IT student and aspiring software developer with hands-on experience in cloud architecture, software engineering, and data-driven applications through industry-backed job simulations (AWS, Deloitte, Quantium). Strong foundation in programming, web development, and AI — seeking internship opportunities to apply scalable, real-world solutions.</p>
+          <div class="tag-wrap">
+            <span class="tag">Python</span>
+            <span class="tag">Java</span>
+            <span class="tag">C</span>
+            <span class="tag">C++</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">HTML</span>
+            <span class="tag">Flutter</span>
+            <span class="tag">AWS</span>
+            <span class="tag">Cloud Computing</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Data Structures</span>
+          </div>
+        </div>
+        <div class="side-stack">
+          <div class="glass-card side-card reveal">
+            <h3>Languages</h3>
+            <ul>
+              <li><strong>Hindi</strong> — Native</li>
+              <li><strong>English</strong> — Advanced</li>
+              <li><strong>French</strong> — Basic</li>
+            </ul>
+          </div>
+          <div class="glass-card side-card reveal">
+            <h3>Interests</h3>
+            <ul>
+              <li>Sports &amp; Fitness</li>
+              <li>Reading (Tech &amp; Non-fiction)</li>
+              <li>Video Games (Strategy)</li>
+              <li>Traveling &amp; Cultural Exploration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section-wrap" id="projects">
+  <div class="section">
+    <div class="section-inner">
+      <p class="eyebrow reveal">What I've built</p>
+      <div class="section-heading reveal">Selected <em>projects</em></div>
+      <div class="projects-grid">
+        <div class="glass-card reveal">
+          <div class="proj-number">01</div>
+          <div class="proj-title">Cloud-AI</div>
+          <div class="proj-stack">Python · Machine Learning</div>
+          <p class="proj-desc">An AI-based troubleshooting system that analyzes complex problems and recommends solutions using ML models to automate decision-making.</p>
+        </div>
+        <div class="glass-card reveal">
+          <div class="proj-number">02</div>
+          <div class="proj-title">Web-Wiz</div>
+          <div class="proj-stack">HTML · JavaScript · Web Dev</div>
+          <p class="proj-desc">An online coding platform enabling users to write, debug, and execute code in multiple languages with a clean, user-friendly interface.</p>
+        </div>
+        <div class="glass-card reveal">
+          <div class="proj-number">03</div>
+          <div class="proj-title">Quick Speak</div>
+          <div class="proj-stack">Language Translation</div>
+          <p class="proj-desc">A language translation application focused on fast and accessible communication across multiple languages.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION & CERTS -->
+<div class="section-wrap section-bg" id="education">
+  <div class="section">
+    <div class="section-inner">
+      <p class="eyebrow reveal">My background</p>
+      <div class="section-heading reveal">Education &amp; <em>certifications</em></div>
+      <div class="edu-cert-grid">
+        <div class="glass-card reveal">
+          <div class="card-heading">Education</div>
+          <div class="edu-item">
+            <div class="edu-deg">I.MSc IT</div>
+            <div class="edu-inst">Silver Oak University · 2022–Present</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-deg">HSC · 89%</div>
+            <div class="edu-inst">Kendriya Vidyalaya No.2 · 2020</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-deg">SSC · 72%</div>
+            <div class="edu-inst">Euro School International · 2018</div>
+          </div>
+        </div>
+        <div class="glass-card reveal">
+          <div class="card-heading">Certifications</div>
+          <div class="cert-item"><div class="cert-dot"></div><span class="cert-name">AWS Solutions Architecture — Forage</span></div>
+          <div class="cert-item"><div class="cert-dot"></div><span class="cert-name">Deloitte Tech — Forage</span></div>
+          <div class="cert-item"><div class="cert-dot"></div><span class="cert-name">Quantium Software Engineering — Forage</span></div>
+          <div class="cert-item"><div class="cert-dot"></div><span class="cert-name">Intel AI Program</span></div>
+          <div class="cert-item"><div class="cert-dot"></div><span class="cert-name">IEEE CipherX</span></div>
+          <div class="cert-item"><div class="cert-dot"></div><span class="cert-name">IIT Bombay Illuminate</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="eyebrow reveal">Let's connect</p>
+  <div class="section-heading reveal">Get in <em>touch</em></div>
+  <p class="contact-sub reveal">Open to internship opportunities, collaborations, and interesting projects. Let's build something together.</p>
+  <div class="contact-btns reveal">
+    <a href="mailto:kadrirushan112@gmail.com" class="liquid-glass contact-btn">kadrirushan112@gmail.com</a>
+    <a href="tel:+917041052522" class="liquid-glass contact-btn">+91 70410 52522</a>
+  </div>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, {threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
